@@ -1,33 +1,107 @@
 #include <stdio.h>
-#include <bits/stdc.h>
-using namespace std;
-string addBitStrings(string str1, string str2)
-{
-string ans = "";
-int i = str1.size()-1;
-int j = str2.size()-1;
-int carry = 0;
-while (i>=0 || j>=0 || carry){
-carry += ((i>=0)?(str1[i--] - '0'):(0));
-carry += ((j>=0)?(str1[j--] - '0'):(0));
-ans = char('0'+(carry % 2)) + ans;
-carry = carry/2;
-}
-return ans;
+#include <stdlib.h>
+#include<stdbool.h>
+#define MAX 5
 
-int main()
-{
-int decimal_num, binary_num = 0, i=1,remainder;
-printf("Enter a decimal number: ");
-scanf("%d", &decimal_num);
-while(decimal_num!=0)
-{
-remainder = decimal_num % 2;
-decimal_num /= 2;
-binary_num += remainder*i;
-i*=10;
+int queue[MAX];
+int front =-1;
+int rear =-1;
+
+bool isFull(){
+if(rear==MAX-1){
+return 1;
 }
-printf("Binary number: %d\n",binary_num);
+else{
+return 0;
+}
+}
+
+bool isEmpty(){
+if(rear==-1 || front == MAX-1 || rear == front){
+return 1;
+}
+else{
+return 0;
+}
+}
+
+bool isEnd(){
+if(isFull()){
+if(front == rear){
+return 1;
+}
+}
 return 0;
 }
 
+void reset(){
+front=-1;
+rear=-1;
+}
+
+void enqueue(){
+int value;
+printf("Enter the number : ");
+scanf("%d",&value);
+	
+if(isEnd()){
+reset();
+rear=rear+1;
+queue[rear]=value;
+}
+else if(isFull()){
+printf("Queue is full \n");
+}
+else{
+rear=rear+1;
+queue[rear]=value;}
+}
+
+void dequeue(){
+int i;
+if(isEmpty()){
+printf("Queue is empty \n");
+}
+else{
+printf("%d is dequeue \n",queue[front+1]);
+front=front+1;
+}
+}
+void display(){
+int i;
+if(isEmpty()){
+printf("Queue is empty\n");
+}
+else{
+for(i=front+1;i<=rear;i++){
+printf("queue[%d] is : %d \n",i+1,queue[i]);
+}
+}
+}
+
+int main() {
+int opt;
+do{
+		
+printf("1)Enqueue\n");
+printf("2)Dequeue\n");
+printf("3)Display\n");
+printf("4)Quit");
+printf("Choose your option : ");
+scanf("%d",&opt);
+switch(opt){
+case 1:
+enqueue();
+break;
+case 2:
+dequeue();
+break;
+case 3:
+display();
+break;
+default:
+printf("Invalid Option !  Try Again..\n");
+}
+}while(opt!=0);
+return 0;
+}
