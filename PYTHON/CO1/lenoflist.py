@@ -10,9 +10,7 @@ print(max(list1))
 list1=(15,36,873,83445)
 print(min(list1))
 
-#To return tuple into a list
-tuple1=('alfee',1999,7.3,'ajay')
-print("list1=",list(tuple1))
+
 
 #To append a list
 list1=['alfee',657,938,'ajay']
